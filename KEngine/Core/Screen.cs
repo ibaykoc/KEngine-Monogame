@@ -45,7 +45,19 @@ namespace KEngine.Core {
 
         public void AddEntity(Entity entity) {
             entities.Add(entity);
-            entity.Initialize();
+            entity.Screen = this;
+            //Queue<Entity> entityToAdd = new Queue<Entity>();
+            //entityToAdd.Enqueue(entity);
+            //while (entityToAdd.Count > 0) {
+            //    Entity e = entityToAdd.Dequeue();
+                
+            //    if(e.child.Count > 0) {
+            //        foreach(Entity c in e.child) {
+            //            entityToAdd.Enqueue(c);
+            //        }
+            //    }
+            //}
+            
         }
     }
 }

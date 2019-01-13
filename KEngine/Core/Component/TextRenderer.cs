@@ -9,16 +9,28 @@ namespace KEngine.Core {
         public string text;
         public SpriteFont font;
         public BoundingBox2D bound;
-        public TextRenderer(Entity owner, string text = "Text", SpriteFont font = null, Color? color = null) : base(owner) {
+        Vector2 fontSize;
+
+        public TextRenderer(string text = "Text", SpriteFont font = null, Color? color = null){
             this.text = text;
-            this.font = owner.screen.contentManager.Load<SpriteFont>("KEngine/Font/Default");
             this.color = color ?? Color.White;
-            Vector2 fontSize = this.font.MeasureString(text);
-            this.bound = new BoundingBox2D(
-                owner.position - fontSize / 2f,
-                owner.position + fontSize / 2f);
         }
 
+        public override void Initialize() {
+            base.Initialize();
+            this.font = owner.Screen.contentManager.Load<SpriteFont>("KEngine/Font/Default");
+            fontSize = this.font.MeasureString(text);
+            this.bound = new BoundingBox2D(
+                owner.WorldPosition - fontSize / 2f,
+                owner.WorldPosition + fontSize / 2f);
+        }
+
+        public override void RecalculateBound() {
+            this.bound = new BoundingBox2D(
+                owner.WorldPosition - fontSize / 2f,
+                owner.WorldPosition + fontSize / 2f);
+            Logger.LogLifecycle("RecalculateBound");
+        }
         public override void Draw() {
             CoreGame.spriteBatch.DrawString(font, text,
                 bound.min,

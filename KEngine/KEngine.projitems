@@ -19,6 +19,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\Entity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\IDrawable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\IInitializable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\IPositionChangeHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\IUpdatable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\UI\Button.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Input\KInput.cs" />

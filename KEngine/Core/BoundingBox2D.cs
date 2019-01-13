@@ -14,6 +14,10 @@ namespace KEngine.Core {
             private set { }
         }
 
+        public Vector2 Size {
+            get { return new Vector2(max.X - min.X, max.Y - min.Y); }
+        }
+
         public BoundingBox2D(Vector2 min, Vector2 max) {
             this.min = min;
             this.max = max;

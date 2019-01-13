@@ -11,20 +11,20 @@ namespace KEngine.Core {
         Fader fader;
         bool mouseHover;
         bool attemptClick = false;
-        public string Text {
-            get {
-                return textRenderer.text;
-            } set {
-                textRenderer.text = value;
-            }
+        public BoundingBox2D Bound {
+            get { return textRenderer.bound; }
         }
-
-        public Button(Screen screen, string text = null, Vector2? position = null) : base(screen, position) { 
-            textRenderer = new TextRenderer(this, text ?? "Button");
-            fader = new Fader(this) { fadeSpeed = 5f, loop = true, fading = false };
+        public string Text {
+            get { return textRenderer.text; }
+            set { textRenderer.text = value; }
         }
 
         public event EventHandler OnButtonClicked;
+
+        public Button(string text = null, Vector2? position = null) : base(position) {
+            textRenderer = new TextRenderer(text ?? "Button");
+            fader = new Fader() { fadeSpeed = 5f, loop = true, fading = false };
+        }
 
         public override void Initialize() {
             base.Initialize();
@@ -42,7 +42,7 @@ namespace KEngine.Core {
             if (mouseHover) {
                 KButtonState leftMouseState = KInput.GetButtonState(KButton.LeftMouse);
                 if (leftMouseState == KButtonState.Pressed) attemptClick = true;
-                if (leftMouseState == KButtonState.Released && attemptClick) {
+                else if (leftMouseState == KButtonState.Released && attemptClick) {
                     OnButtonClicked?.Invoke(this, null);
                 }
             }

@@ -46,6 +46,8 @@ namespace KEngine.Core.Input {
             Point currentMousePosition = mouseState.Position;
             MousePositionDelta = MousePosition - currentMousePosition;
             MousePosition = mouseState.Position;
+
+            //Logger.LogEvent(buttonState[KButton.LeftMouse]);
         }
 
         private static void UpdateMouseButtonState(KButton btn, ButtonState btnState) {

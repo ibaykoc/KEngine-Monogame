@@ -14,8 +14,6 @@ namespace KEngine.Core {
         public event EventHandler OnFadedOut = null;
         public event EventHandler OnFadedIn = null;
 
-        public Fader(Entity owner): base(owner) { }
-
         public override void Initialize() {
             base.Initialize();
             tr = owner.GetComponent<Renderer>();
