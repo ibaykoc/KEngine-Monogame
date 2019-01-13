@@ -22,7 +22,7 @@ namespace KEngine.Core {
 
         public override void Update(GameTime gameTime) {
             base.Update(gameTime);
-            bool currentMouseHover = textRenderer.bound.IsInside(KInput.mousePosition);
+            bool currentMouseHover = textRenderer.bound.IsInside(KInput.MousePosition);
             if (!mouseHover && currentMouseHover) OnMouseEnter();
             else if (mouseHover && !currentMouseHover) OnMouseExit();
             mouseHover = currentMouseHover;
