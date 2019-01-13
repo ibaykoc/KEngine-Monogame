@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>cf636b49-450d-4760-b2e0-d73362524733</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>KEngine</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Core\BoundingBox2D.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Component\Component.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Component\Fader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Component\Renderer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Component\TextRenderer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Component\TextureRenderer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\CoreGame.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\Entity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\IDrawable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\IInitializable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\IUpdatable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\UI\Button.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Input\KInput.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Logger\Logger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Screen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\ScreenManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Content\" />
+  </ItemGroup>
+  <ItemGroup>
+    <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
+  </ItemGroup>
+</Project>

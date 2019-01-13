@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "KEngine", "KEngine\KEngine.shproj", "{A0CDBD0E-3A41-42B7-9425-A838BC2C7383}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KEngineSandbox", "KEngineSandbox\KEngineSandbox.csproj", "{1F332612-B69F-490B-9462-43F640C28755}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KEngineSandboxEditor", "KEngineSandboxEditor\KEngineSandboxEditor.csproj", "{C15A16C2-4951-4E39-B2D0-935FE4620931}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		KEngine\KEngine.projitems*{1f332612-b69f-490b-9462-43f640c28755}*SharedItemsImports = 4
+		KEngine\KEngine.projitems*{a0cdbd0e-3a41-42b7-9425-a838bc2c7383}*SharedItemsImports = 13
+		KEngine\KEngine.projitems*{c15a16c2-4951-4e39-b2d0-935fe4620931}*SharedItemsImports = 4
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F332612-B69F-490B-9462-43F640C28755}.Debug|x86.ActiveCfg = Debug|x86
+		{1F332612-B69F-490B-9462-43F640C28755}.Debug|x86.Build.0 = Debug|x86
+		{1F332612-B69F-490B-9462-43F640C28755}.Release|x86.ActiveCfg = Release|x86
+		{1F332612-B69F-490B-9462-43F640C28755}.Release|x86.Build.0 = Release|x86
+		{C15A16C2-4951-4E39-B2D0-935FE4620931}.Debug|x86.ActiveCfg = Debug|x86
+		{C15A16C2-4951-4E39-B2D0-935FE4620931}.Debug|x86.Build.0 = Debug|x86
+		{C15A16C2-4951-4E39-B2D0-935FE4620931}.Release|x86.ActiveCfg = Release|x86
+		{C15A16C2-4951-4E39-B2D0-935FE4620931}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F87424F9-F799-43A5-B658-7786B79365A1}
+	EndGlobalSection
+EndGlobal
