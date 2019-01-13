@@ -34,6 +34,7 @@ namespace KEngine.Core {
 
         protected override void Initialize() {
             base.Initialize();
+            KInput.Initialize();
             IsMouseVisible = true;
             Log("CoreGame Initialize");
         }
