@@ -11,6 +11,7 @@ namespace KEngine.Core {
         TextRenderer textRenderer;
         Fader fader;
         bool mouseHover;
+        bool attemptClick = false;
 
         public override void Initialize() {
             base.Initialize();
@@ -26,6 +27,14 @@ namespace KEngine.Core {
             if (!mouseHover && currentMouseHover) OnMouseEnter();
             else if (mouseHover && !currentMouseHover) OnMouseExit();
             mouseHover = currentMouseHover;
+
+            if (mouseHover) {
+                KButtonState leftMouseState = KInput.GetButtonState(KButton.LeftMouse);
+                if (leftMouseState == KButtonState.Pressed) attemptClick = true;
+                if (leftMouseState == KButtonState.Released && attemptClick) {
+                    Logger.Log("Clicked");
+                }
+            }
         }
 
         void OnMouseEnter() {
@@ -37,6 +46,7 @@ namespace KEngine.Core {
 
         void OnMouseExit() {
             Logger.Log("Mouse Exit");
+            attemptClick = false;
             fader.fadeIn = true;
             fader.loop = false;
         }
