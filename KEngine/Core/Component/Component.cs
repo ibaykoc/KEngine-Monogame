@@ -9,11 +9,11 @@ namespace KEngine.Core {
 
         public Component(Entity owner) {
             this.owner = owner;
-            Logger.Log(GetType().Name + " Component Created");
+            Logger.LogLifecycle(GetType().Name + " Component Created");
         }
 
         public virtual void Initialize() {
-            Logger.Log(GetType().Name + " Component Initialize");
+            Logger.LogLifecycle(GetType().Name + " Component Initialize");
         }
 
         public virtual void Dispose() { }

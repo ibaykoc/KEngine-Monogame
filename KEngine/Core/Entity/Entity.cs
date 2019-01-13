@@ -11,13 +11,13 @@ namespace KEngine.Core {
 
         public Entity(Screen screen, Vector2? position = null) {
             this.screen = screen;
-            Log(GetType().Name + " Entity Created");
+            LogLifecycle(GetType().Name + " Entity Created");
             this.position = position ?? Vector2.Zero;
             this.components = new List<Component>();
         }
 
         public virtual void Initialize() {
-            Log(GetType().Name + " Entity Initialize");
+            LogLifecycle(GetType().Name + " Entity Initialize");
         }
 
         public virtual void Update(GameTime gameTime) {
@@ -46,7 +46,7 @@ namespace KEngine.Core {
             return null;
         }
 
-        public void Dispose() {
+        public virtual void Dispose() {
             foreach (Component component in components) {
                 component.Dispose();
             }

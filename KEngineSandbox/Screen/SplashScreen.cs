@@ -24,10 +24,10 @@ namespace KEngineSandbox {
         }
 
         void OnFadedOut(Object sender, EventArgs e) {
-            Logger.Log("OnFadedOut");
+            Logger.LogLifecycle("OnFadedOut");
         }
         void OnFadedIn(Object sender, EventArgs e) {
-            Logger.Log("OnFadedIn");
+            Logger.LogLifecycle("OnFadedIn");
         }
     }
 }

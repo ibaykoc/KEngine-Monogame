@@ -5,8 +5,18 @@ namespace KEngine.Core {
     public static class Logger {
 
         [Conditional("DEBUG")]
-        public static void Log(object obj) {
+        public static void LogLifecycle(object obj) {
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(obj);
+            Console.ResetColor();
+        }
+
+        [Conditional("DEBUG")]
+        public static void LogEvent(object obj) {
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.WriteLine(obj);
+            Console.ResetColor();
         }
 
         [Conditional("DEBUG")]

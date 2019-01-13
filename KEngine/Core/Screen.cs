@@ -13,17 +13,17 @@ namespace KEngine.Core {
         List<Entity> entities = new List<Entity>();
 
         public virtual void LoadContent() {
-            Log(GetType().Name + " Screen LoadContent");
+            LogLifecycle(GetType().Name + " Screen LoadContent");
             contentManager = new ContentManager(CoreGame.contentManager.ServiceProvider, "Content");
         }
 
         public virtual void Initialize() {
-            Log(GetType().Name + " Screen Initialize");
+            LogLifecycle(GetType().Name + " Screen Initialize");
         }
 
         public virtual void UnloadContent() {
             if (contentManager != null) {
-                Log(GetType().Name + " Screen UnloadContent");
+                LogLifecycle(GetType().Name + " Screen UnloadContent");
                 foreach (Entity entity in entities) {
                     entity.Dispose();
                 }

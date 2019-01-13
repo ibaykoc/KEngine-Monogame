@@ -26,7 +26,7 @@ namespace KEngine.Core {
             screenManager = new ScreenManager();
         }
         protected override void LoadContent() {
-            Log("CoreGame LoadContent");
+            LogLifecycle("CoreGame LoadContent");
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             var f = Content.Load<SpriteFont>("KEngine/Font/Default");
@@ -36,7 +36,7 @@ namespace KEngine.Core {
             base.Initialize();
             KInput.Initialize();
             IsMouseVisible = true;
-            Log("CoreGame Initialize");
+            LogLifecycle("CoreGame Initialize");
         }
 
         protected override void Update(GameTime gameTime) {
@@ -57,7 +57,7 @@ namespace KEngine.Core {
 
         protected override void UnloadContent() {
             screenManager.UnloadContent();
-            Log("CoreGame UnloadContent");
+            LogLifecycle("CoreGame UnloadContent");
             Content.Unload();
         }
     }

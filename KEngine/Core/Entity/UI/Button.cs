@@ -6,17 +6,28 @@ using System.Text;
 
 namespace KEngine.Core {
     class Button : Entity {
-        public Button(Screen screen, Vector2? position) : base(screen, position) { }
 
         TextRenderer textRenderer;
         Fader fader;
         bool mouseHover;
         bool attemptClick = false;
+        public string Text {
+            get {
+                return textRenderer.text;
+            } set {
+                textRenderer.text = value;
+            }
+        }
+
+        public Button(Screen screen, string text = null, Vector2? position = null) : base(screen, position) { 
+            textRenderer = new TextRenderer(this, text ?? "Button");
+            fader = new Fader(this) { fadeSpeed = 5f, loop = true, fading = false };
+        }
+
+        public event EventHandler OnButtonClicked;
 
         public override void Initialize() {
             base.Initialize();
-            textRenderer = new TextRenderer(this, "Create New Level");
-            fader = new Fader(this) { fadeSpeed = 5f, loop = true, fading = false };
             AddComponent(textRenderer);
             AddComponent(fader);
         }
@@ -32,23 +43,27 @@ namespace KEngine.Core {
                 KButtonState leftMouseState = KInput.GetButtonState(KButton.LeftMouse);
                 if (leftMouseState == KButtonState.Pressed) attemptClick = true;
                 if (leftMouseState == KButtonState.Released && attemptClick) {
-                    Logger.Log("Clicked");
+                    OnButtonClicked?.Invoke(this, null);
                 }
             }
         }
 
         void OnMouseEnter() {
-            Logger.Log("Mouse Enter");
             fader.loop = true;
             fader.fadeIn = false;
             fader.fading = true;
         }
 
         void OnMouseExit() {
-            Logger.Log("Mouse Exit");
             attemptClick = false;
             fader.fadeIn = true;
             fader.loop = false;
         }
+
+        public override void Dispose() {
+            OnButtonClicked = null;
+            base.Dispose();
+        }
+
     }
 }
