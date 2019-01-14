@@ -36,6 +36,14 @@ namespace KEngine.Core {
                 );
         }
 
+        public void SetToRect(ref Rectangle rect) {
+            rect.X = (int)min.X;
+            rect.Y = (int)min.Y;
+            var size = Size;
+            rect.Width = (int)size.X;
+            rect.Height = (int)size.Y;
+        }
+
         public override string ToString() {
             return String.Format("Min:({0},{1}), Max:({2},{3})", min.X, min.Y, max.X, max.Y);
         }

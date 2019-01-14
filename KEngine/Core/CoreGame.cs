@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using static KEngine.Core.Logger;
+
 namespace KEngine.Core {
     public class CoreGame: Game {
 
@@ -25,18 +26,17 @@ namespace KEngine.Core {
             contentManager = Content;
             screenManager = new ScreenManager();
         }
+
         protected override void LoadContent() {
             LogLifecycle("CoreGame LoadContent");
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            var f = Content.Load<SpriteFont>("KEngine/Font/Default");
         }
 
         protected override void Initialize() {
+            LogLifecycle("CoreGame Initialize");
             base.Initialize();
             KInput.Initialize();
             IsMouseVisible = true;
-            LogLifecycle("CoreGame Initialize");
         }
 
         protected override void Update(GameTime gameTime) {
@@ -53,11 +53,14 @@ namespace KEngine.Core {
             spriteBatch.Begin();
             screenManager.Draw();
             spriteBatch.End();
+            spriteBatch.Begin();
+            screenManager.DrawUi();
+            spriteBatch.End();
         }
 
         protected override void UnloadContent() {
-            screenManager.UnloadContent();
             LogLifecycle("CoreGame UnloadContent");
+            screenManager.UnloadContent();
             Content.Unload();
         }
     }

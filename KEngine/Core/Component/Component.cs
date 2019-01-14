@@ -13,6 +13,8 @@ namespace KEngine.Core {
             Logger.LogLifecycle(GetType().Name + " Component Initialize");
         }
 
-        public virtual void Dispose() { }
+        public virtual void Dispose() {
+            Logger.LogLifecycle(GetType().Name + " Component Dispose");
+        }
     }
 }

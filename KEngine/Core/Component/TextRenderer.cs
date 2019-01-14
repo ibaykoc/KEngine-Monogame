@@ -18,7 +18,7 @@ namespace KEngine.Core {
 
         public override void Initialize() {
             base.Initialize();
-            this.font = owner.Screen.contentManager.Load<SpriteFont>("KEngine/Font/Default");
+            this.font = owner.Screen.ContentManager.Load<SpriteFont>("KEngine/Font/Default");
             fontSize = this.font.MeasureString(text);
             this.bound = new BoundingBox2D(
                 owner.WorldPosition - fontSize / 2f,
@@ -39,6 +39,7 @@ namespace KEngine.Core {
 
         public override void Dispose() {
             font.Texture.Dispose();
+            base.Dispose();
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace KEngine.Core {
-    class Button : Entity {
+    class Button : UiEntity {
 
         TextRenderer textRenderer;
         Fader fader;
@@ -21,7 +21,8 @@ namespace KEngine.Core {
 
         public event EventHandler OnButtonClicked;
 
-        public Button(string text = null, Vector2? position = null) : base(position) {
+        public Button(string text = null, Vector2? position = null)
+            : base(position: position) {
             textRenderer = new TextRenderer(text ?? "Button");
             fader = new Fader() { fadeSpeed = 5f, loop = true, fading = false };
         }

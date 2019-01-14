@@ -12,23 +12,34 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\BoundingBox2D.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Component\Component.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Component\Fader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Component\Physic2D.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Component\Renderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Component\TextRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Component\TextureRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\CoreGame.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\ISizeChangeHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Physic\Collider2D.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Physic\Collision2D.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Physic\KPhysic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\Entity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\IDrawable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\World\IWorldDrawable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\IInitializable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\IPositionChangeHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\IUpdatable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\UI\Button.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\UI\IUiDrawable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\UI\UiEntity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\World\WorldEntity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Input\KInput.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Logger\Logger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Screen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\ScreenManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Extension\Vector2Ext.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Content\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Core\Extension\" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />

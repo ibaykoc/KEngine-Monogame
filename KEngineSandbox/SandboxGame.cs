@@ -5,9 +5,12 @@ using Microsoft.Xna.Framework.Input;
 
 namespace KEngineSandbox {
     public class SandboxGame : CoreGame {
+
+        public SandboxGame() : base(1280, 640) { }
+
         protected override void Initialize() {
             base.Initialize();
-            screenManager.SetScreen(new SplashScreen());
+            screenManager.SetScreen(new Prototype1());
         }
     }
 }
