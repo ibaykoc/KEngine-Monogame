@@ -10,14 +10,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Core\BoundingBox2D.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Component\EdgeKeepedTextureRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Component\KComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Component\Fader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Component\Physic2D.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Component\Renderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Component\TextRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Component\TextureRenderer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\IParentBoundChangeHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\UI\KPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Extension\RectangleExt.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\KGame.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\ISizeChangeHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Component\Collider2D.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Event\Delegate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Physic\Collision2D.cs" />
@@ -26,7 +29,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\IDrawable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\World\IWorldDrawable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\IInitializable.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\IPositionChangeHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\IBoundChangeHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\IUpdatable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\UI\IUiDrawable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Entity\UI\UiEntity.cs" />
@@ -38,10 +41,26 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\Extension\Vector2Ext.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Content\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Core\Extension\" />
+    <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
-    <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
+    <None Include="$(MSBuildThisFileDirectory)Content\Fonts\KenvectorFuture.spritefont">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Content\Fonts\Default.spritefont">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Content\Textures\PanelBlue.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Content\Textures\PanelGray.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Content\Textures\Default.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Content\Textures\ButtonYellow0_Normal.png" />
   </ItemGroup>
 </Project>

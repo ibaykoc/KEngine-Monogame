@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
 using static KEngine.Core.Logger;
 
 namespace KEngine.Core {
@@ -12,16 +14,30 @@ namespace KEngine.Core {
         public static SpriteBatch spriteBatch;
         public static ScreenManager screenManager;
         public static ContentManager contentManager;
-        public static Texture2D defaultTexture;
-        public static int width { get; private set; }
-        public static int height { get; private set; }
+        public static Dictionary<TextureAsset, Texture2D> Textures { get => textures; private set { } }
+        private static readonly Dictionary<TextureAsset, Texture2D> textures = new Dictionary<TextureAsset, Texture2D>();
+        public static Dictionary<FontAsset, SpriteFont> Fonts { get => fonts; private set { } }
+        private static readonly Dictionary<FontAsset, SpriteFont> fonts = new Dictionary<FontAsset, SpriteFont>();
+        public static int Width { get; private set; }
+        public static int Height { get; private set; }
+
+        public enum TextureAsset {
+            Default,
+            PanelGray,
+            PanelBlue,
+            ButtonYellow0_Normal
+        }
+        public enum FontAsset {
+            Default,
+            KenvectorFuture
+        }
 
         public KGame(int? windowWidth = null, int? windowHeight = null) {
-            width = windowWidth ?? 640;
-            height = windowHeight ?? 480;
+            Width = windowWidth ?? 640;
+            Height = windowHeight ?? 480;
             graphicsDeviceManager = new GraphicsDeviceManager(this) {
-                PreferredBackBufferWidth = width,
-                PreferredBackBufferHeight = height
+                PreferredBackBufferWidth = Width,
+                PreferredBackBufferHeight = Height
             };
             Content.RootDirectory = "Content";
             contentManager = Content;
@@ -29,12 +45,12 @@ namespace KEngine.Core {
         }
 
         public KGame(bool fullscreen) {
-            width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            Width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            Height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             graphicsDeviceManager = new GraphicsDeviceManager(this) {
                 IsFullScreen = true,
-                PreferredBackBufferWidth = width,
-                PreferredBackBufferHeight = height
+                PreferredBackBufferWidth = Width,
+                PreferredBackBufferHeight = Height
             };
             Content.RootDirectory = "Content";
             contentManager = Content;
@@ -44,7 +60,12 @@ namespace KEngine.Core {
         protected override void LoadContent() {
             LogLifecycle("CoreGame LoadContent");
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            defaultTexture = contentManager.Load<Texture2D>("KEngine/Images/WhitePixel");
+            foreach (TextureAsset e in Enum.GetValues(typeof(TextureAsset))) {
+            Textures[e] = contentManager.Load<Texture2D>("Textures/" + e.ToString());
+            }
+            foreach (FontAsset e in Enum.GetValues(typeof(FontAsset))) {
+            Fonts[e] = contentManager.Load<SpriteFont>("Fonts/" + e.ToString());
+            }
         }
 
         protected override void Initialize() {
@@ -67,7 +88,7 @@ namespace KEngine.Core {
             spriteBatch.Begin();
             screenManager.Draw();
             spriteBatch.End();
-            spriteBatch.Begin();
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             screenManager.DrawUi();
             spriteBatch.End();
         }

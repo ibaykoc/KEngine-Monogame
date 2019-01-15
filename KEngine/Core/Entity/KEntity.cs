@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using static KEngine.Core.Logger;
 using KEngine.Core.Component;
+using KEngine.Core.Event;
 
 namespace KEngine.Core {
-    public class KEntity : IInitializable, IUpdatable, IDisposable, IPositionChangeHandler {
+    public class KEntity : IInitializable, IUpdatable, IDisposable, IParentBoundChangeHandler {
 
         protected bool initialized = false;
 
@@ -17,29 +18,35 @@ namespace KEngine.Core {
             get { return screen; }
             set { if (screen != value) { OnScreenChange(screen, value); } }
         }
-        private Vector2 position;
-        public Vector2 Position {
-            get { return position; }
-            set { position = value; OnPositionChanged?.Invoke(this, null); }
-        }
-        public event EventHandler OnPositionChanged;
-
-        private Vector2 size;
-        public Vector2 Size {
-            get { return size; }
-            set { size = value; OnSizeChanged?.Invoke(this, null); }
-        }
 
         private BoundingBox2D bound;
-        public BoundingBox2D Bound { get => bound; private set { } }
-
-        public Vector2 WorldPosition {
-            get { return Position + (parent?.WorldPosition ?? Vector2.Zero); }
-            set { Position = value + (parent?.WorldPosition ?? Vector2.Zero); }
+        public BoundingBox2D Bound {
+            get => bound;
+            set {
+                if (value != bound) {
+                    bound = value;
+                    OnBoundChanged?.Invoke(value);
+                }
+            }
         }
-        public event EventHandler OnSizeChanged;
+        public KEventCallback<BoundingBox2D> OnBoundChanged;
 
-        public List<KComponent> components { get; private set; }
+        public BoundingBox2D WorldBound {
+            get {
+                if (parent == null) return Bound;
+                else {
+                    return Bound.CreateNewMoveBy(parent.WorldBound.min);
+                }
+            }
+            set {
+                if (parent == null) Bound = value;
+                else {
+                    Bound = value.CreateNewMoveBy(-parent.WorldBound.min);
+                }
+            }
+        }
+
+        public List<KComponent> Components { get; private set; }
 
         private KEntity parent;
         public KEntity Parent {
@@ -53,22 +60,18 @@ namespace KEngine.Core {
         }
         public List<KEntity> child;
 
-        public KEntity(string name = null, Vector2? position = null, Vector2? size = null) {
+        public KEntity(string name = null, BoundingBox2D? bound = null, Vector2? size = null) {
             this.name = name ?? GetType().Name;
-            this.position = position ?? Vector2.Zero;
-            this.size = size ?? (Vector2.One * 10f);
-            this.components = new List<KComponent>();
+            this.Components = new List<KComponent>();
             this.child = new List<KEntity>();
-            this.bound = new BoundingBox2D(this.position - this.size / 2f, this.position + this.size / 2f);
-            OnPositionChanged += OnPositionChange;
-            OnSizeChanged += OnSizeChange;
+            this.bound = bound ?? BoundingBox2D.Zero;
         }
 
         public virtual void Initialize() {
             Debug.Assert(!initialized, "Entity should not initialize more than once");
             Debug.Assert(Screen != null, "Should not initialize without screen");
             LogLifecycle(name + " Entity Initialize");
-            foreach (KComponent component in components) {
+            foreach (KComponent component in Components) {
                 component.Initialize();
             }
             initialized = true;
@@ -77,7 +80,7 @@ namespace KEngine.Core {
 
         protected virtual void OnParentChange(KEntity from, KEntity to) {
             LogLifecycle(name + " OnParentChange");
-            foreach (KComponent component in components) {
+            foreach (KComponent component in Components) {
                 if (component is Renderer)
                     (component as Renderer).RecalculateBound();
             }
@@ -94,31 +97,13 @@ namespace KEngine.Core {
             }
         }
 
-        public virtual void OnPositionChange(object sender, EventArgs e) {
-            this.bound.min = this.position - this.size / 2f;
-            this.bound.max = this.position + this.size / 2f;
-            foreach (KComponent component in components) {
-                if (component is IPositionChangeHandler)
-                    (component as IPositionChangeHandler).OnPositionChange(sender, e);
-            }
-            foreach (KEntity c in child) {
-                c.OnPositionChange(sender, e);
-            }
-        }
-
-        public virtual void OnSizeChange(object sender, EventArgs e) {
-            foreach (KComponent component in components) {
-                if (component is ISizeChangeHandler)
-                    (component as ISizeChangeHandler).OnSizeChange(sender, e);
-            }
-            foreach (KEntity c in child) {
-                c.OnPositionChange(sender, e);
-            }
+        public void OnParentBoundChange(BoundingBox2D newBound) {
+            OnBoundChanged(newBound);
         }
 
         public virtual void Update(GameTime gameTime) {
             if (!initialized) return;
-            foreach (KComponent component in components) {
+            foreach (KComponent component in Components) {
                 if (component is IUpdatable)
                     (component as IUpdatable).Update(gameTime);
             }
@@ -126,13 +111,16 @@ namespace KEngine.Core {
 
         public void AddComponent(KComponent component) {
             Debug.Assert(component != null, "Added component should not be null");
-            components.Add(component);
+            if(component is IBoundChangeHandler) {
+                OnBoundChanged += (component as IBoundChangeHandler).OnBoundChange;
+            }
+            Components.Add(component);
             component.owner = this;
             if (this.initialized) component.Initialize();
         }
 
         public T GetComponent<T>() where T : KComponent {
-            foreach (KComponent c in components) {
+            foreach (KComponent c in Components) {
                 if (c is T) return c as T;
             }
             return null;
@@ -141,15 +129,13 @@ namespace KEngine.Core {
         public void AddChild(KEntity entity) {
             this.child.Add(entity);
             entity.Parent = this;
+            OnBoundChanged += entity.OnParentBoundChange;
             entity.Screen = screen;
         }
 
         public virtual void Dispose() {
-            foreach (KComponent component in components) {
-                component.Dispose();
-            }
-            OnSizeChanged = null;
-            OnPositionChanged = null;
+            foreach (KComponent component in Components) { component.Dispose(); }
+            OnBoundChanged = null;
             LogLifecycle(name + " Entity Dispose");
         }
     }

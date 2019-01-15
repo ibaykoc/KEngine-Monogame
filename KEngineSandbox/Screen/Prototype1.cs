@@ -7,31 +7,31 @@ namespace KEngineSandbox {
             base.Initialize();
             AddWorldEntity(new Player(
                 name: "Player",
-                position: new Vector2(KGame.width / 2f, KGame.height/2f),
+                position: new Vector2(KGame.Width / 2f, KGame.Height/2f),
                 size: new Vector2(150f)));
             AddWorldEntity(new Box(
                 name: "Box Top",
-                position: new Vector2(KGame.width / 2f, 30f),
+                position: new Vector2(KGame.Width / 2f, 30f),
                 size: new Vector2(2000f, 10f)
                 ));
             AddWorldEntity(new Box(
                 name: "Box Bottom",
-                position: new Vector2(KGame.width / 2f, KGame.height - 30f),
+                position: new Vector2(KGame.Width / 2f, KGame.Height - 30f),
                 size: new Vector2(2000f, 10f)
                 ));
             AddWorldEntity(new Box(
                 name: "Box Right",
-                position: new Vector2(KGame.width - 30f, KGame.height / 2f),
+                position: new Vector2(KGame.Width - 30f, KGame.Height / 2f),
                 size: new Vector2(10f, 2000f)
                 ));
             AddWorldEntity(new Box(
                 name: "Box Left",
-                position: new Vector2( 30f, KGame.height / 2f),
+                position: new Vector2( 30f, KGame.Height / 2f),
                 size: new Vector2(10f, 2000f)
                 ));
             AddWorldEntity(new Box(
                 name: "Box Center",
-                position: new Vector2(KGame.width / 2f, KGame.height / 2f),
+                position: new Vector2(KGame.Width / 2f, KGame.Height / 2f),
                 size: new Vector2(150f, 150f)
                 ));
         }

@@ -1,61 +1,50 @@
-﻿using GeonBit.UI;
-using GeonBit.UI.Entities;
+﻿
 using KEngine.Core;
+using KEngine.Core.Component;
+using KEngine.Core.Entity.UI;
+using KEngine.Core.Input;
 using Microsoft.Xna.Framework;
+using static KEngine.Core.KGame;
 
 namespace KEngineSandboxEditor {
     class MainMenu : Screen {
+        KPanel rootPanel = new KPanel(name: "Root Panel", x: 0, y: 0, width: KGame.Width / 2f, height: KGame.Height / 2f);
+        UiEntity coordText = new UiEntity(
+            name: "coordText",
+            bound: new BoundingBox2D()
+            );
+        TextRenderer coordTextRend = new TextRenderer(
+            text: KInput.MousePosition.ToString(),
+            font: Fonts[FontAsset.KenvectorFuture],
+            color: Color.Red);
 
-        Panel panel = new Panel(new Vector2(400, 650), PanelSkin.Default, Anchor.Center);
-        Panel newScreenPanel = new Panel(new Vector2(600, 400), PanelSkin.Default, Anchor.Center);
         public override void Initialize() {
             base.Initialize();
-            UserInterface.Active.AddEntity(panel);
-            UserInterface.Active.AddEntity(newScreenPanel);
-            newScreenPanel.Visible = false;
-            newScreenPanel.AddChild(new Header("Screen Name"));
-            TextInput newScreenTextInput = new TextInput();
-            newScreenPanel.AddChild(newScreenTextInput);
-            Button createNexScreenBtn = new Button("Create New Screen");
-            newScreenPanel.AddChild(createNexScreenBtn);
-            
-            createNexScreenBtn.OnClick = (Entity e) => {
-                string newScreenName = newScreenTextInput.Value;
-                if (newScreenName != "") KGame.screenManager.SetScreen(new ScreenEditor(newScreenName));
-            };
-            panel.AddChild(new Header("Screens"));
-            panel.AddChild(new HorizontalLine());
-
-
-            Button loadButton = new Button("Load Screen");
-            SelectList list = new SelectList(size: new Vector2(0, 400), anchor: Anchor.TopCenter, offset: new Vector2(0, 50), skin: PanelSkin.None);
-            list.AddItem("Screen 1");
-            list.AddItem("Screen 2");
-            list.AddItem("Screen 3");
-            list.OnValueChange = (Entity entity) => {
-                Logger.LogEvent(list.SelectedValue);
-                loadButton.Visible = true;
-            };
-            Button newButton = new Button("New Screen");
-            newButton.OnClick = (Entity e) => {
-                panel.Visible = false;
-                newScreenPanel.Visible = true;
-            };
-            loadButton.Visible = false;
-            panel.AddChild(list);
-            panel.AddChild(newButton);
-            panel.AddChild(loadButton);
+            coordText.AddComponent(coordTextRend);
+            var b = rootPanel.Bound;
+            b.Center = new Vector2(Width / 2f, KGame.Height / 2f);
+            rootPanel.Bound = b;
+            AddUiEntity(rootPanel);
+            AddUiEntity(coordText);
+            //rootPanel.AddChild(cP);
         }
 
         public override void Update(GameTime gameTime) {
             base.Update(gameTime);
-            //if(KInput.MousePositionDelta != Point.Zero)
+            //BoundingBox2D b = rootPanel.Bound;
+            //b.Center = KInput.MousePosition.ToVector2();
+            //rootPanel.Bound = b;
+            if (KInput.MousePositionDelta != Point.Zero) {
+                var mousePos = KInput.MousePosition.ToVector2();
+                var b = coordText.Bound;
+                b.Center = mousePos;
+                coordText.WorldBound = b;
+                coordTextRend.text = mousePos.ToString();
+            }
             //    newLevelButton.Position = new Vector2(KInput.MousePosition.X, KInput.MousePosition.Y);
         }
 
         public override void UnloadContent() {
-            UserInterface.Active.RemoveEntity(panel);
-            UserInterface.Active.RemoveEntity(newScreenPanel);
             base.UnloadContent();
         }
     }

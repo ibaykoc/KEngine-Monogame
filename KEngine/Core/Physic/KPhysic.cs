@@ -15,7 +15,7 @@ namespace KEngine.Core {
                 velocity += collision.impactForce;
                 Logger.LogEvent(collision);
             }
-            col.owner.Position += velocity;
+            col.owner.Bound.MoveBy(velocity);
         }
 
         private static Collision2D[] CheckCollisions(Collider2D collider, Vector2 velocity) {

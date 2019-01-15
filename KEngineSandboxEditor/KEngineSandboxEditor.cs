@@ -1,6 +1,4 @@
-﻿using GeonBit.UI;
-using GeonBit.UI.Entities;
-using KEngine.Core;
+﻿using KEngine.Core;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -13,11 +11,8 @@ namespace KEngineSandboxEditor {
         public static Dictionary<string, Texture2D> textures = new Dictionary<string, Texture2D>();
         protected override void Initialize() {
             base.Initialize();
-            UserInterface.Initialize(Content, BuiltinThemes.editor);
-            UserInterface.Active.GlobalScale = (float)width / (float)GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width * 0.65f;
-            Logger.LogEvent(UserInterface.Active.GlobalScale);
-            UserInterface.Active.UseRenderTarget = true;
-            screenManager.SetScreen(new ScreenEditor("New Screen"));
+            IsMouseVisible = true;
+            screenManager.SetScreen(new MainMenu());
         }
 
         protected override void LoadContent() {
@@ -35,13 +30,11 @@ namespace KEngineSandboxEditor {
 
         protected override void Update(GameTime gameTime) {
             base.Update(gameTime);
-            UserInterface.Active.Update(gameTime);
+            screenManager.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime) {
-            UserInterface.Active.Draw(spriteBatch);
             base.Draw(gameTime);
-            UserInterface.Active.DrawMainRenderTarget(spriteBatch);
         }
     }
 }
