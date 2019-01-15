@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace KEngine.Core {
-    public class Renderer : Component, IDrawable, IPositionChangeHandler, ISizeChangeHandler {
+namespace KEngine.Core.Component {
+    public class Renderer : KComponent, IDrawable, IPositionChangeHandler, ISizeChangeHandler {
         public Color color;
         public virtual void Draw() { }
 

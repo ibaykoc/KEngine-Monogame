@@ -12,7 +12,7 @@ namespace KEngine.Core {
 
         public virtual void LoadContent() {
             LogLifecycle(GetType().Name + " Screen LoadContent");
-            ContentManager = new ContentManager(CoreGame.contentManager.ServiceProvider, "Content");
+            ContentManager = new ContentManager(KGame.contentManager.ServiceProvider, "Content");
         }
 
         public virtual void Initialize() {
@@ -20,17 +20,17 @@ namespace KEngine.Core {
         }
         
         public virtual void Update(GameTime gameTime) {
-            foreach (Entity entity in entities) {
+            foreach (KEntity entity in entities) {
                 UpdateEntity(entity, gameTime);
             }
-            foreach (Entity entity in uiEntities) {
+            foreach (KEntity entity in uiEntities) {
                 UpdateEntity(entity, gameTime);
             }
         }
 
-        void UpdateEntity(Entity entity, GameTime gameTime) {
+        void UpdateEntity(KEntity entity, GameTime gameTime) {
             entity.Update(gameTime);
-            foreach (Entity child in entity.child) {
+            foreach (KEntity child in entity.child) {
                 UpdateEntity(child, gameTime);
             }
         }
@@ -73,10 +73,10 @@ namespace KEngine.Core {
 
         public virtual void UnloadContent() {
             if (ContentManager != null) {
-                foreach (Entity entity in entities) {
+                foreach (KEntity entity in entities) {
                     DisposeEntity(entity);
                 }
-                foreach (Entity entity in uiEntities) {
+                foreach (KEntity entity in uiEntities) {
                     DisposeEntity(entity);
                 }
                 ContentManager.Unload();
@@ -84,9 +84,9 @@ namespace KEngine.Core {
             }
         }
 
-        void DisposeEntity(Entity entity) {
+        void DisposeEntity(KEntity entity) {
             entity.Dispose();
-            foreach (Entity child in entity.child) {
+            foreach (KEntity child in entity.child) {
                 DisposeEntity(child);
             }
         }

@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using KEngine.Core.Component;
+using Microsoft.Xna.Framework;
 
-namespace KEngine.Core {
-    public class Physic2D: Component, IUpdatable {
+namespace KEngine.Core.Component {
+    public class Physic2D: KComponent, IUpdatable {
 
         public Vector2 velocity = new Vector2(0, 0);
         Collider2D col;

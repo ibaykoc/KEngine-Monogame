@@ -1,4 +1,5 @@
 ﻿using KEngine.Core;
+using KEngine.Core.Component;
 using KEngine.Core.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace KEngineSandbox {
-    public class SandboxGame : CoreGame {
+    public class SandboxGame : KGame {
 
         public SandboxGame() : base(1280, 640) { }
 

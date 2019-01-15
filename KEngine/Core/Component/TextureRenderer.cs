@@ -2,12 +2,18 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace KEngine.Core {
+namespace KEngine.Core.Component {
     class TextureRenderer : Renderer {
         Texture2D texture;
         Rectangle rect;
-        public TextureRenderer(Texture2D texture, Color? color = null){
-            this.texture = texture;
+
+        public TextureRenderer() {
+            this.texture = KGame.defaultTexture;
+            this.color = Color.White;
+        }
+
+        public TextureRenderer(Texture2D texture = null, Color? color = null){
+            this.texture = texture ?? KGame.defaultTexture;
             this.color = color ?? Color.White;
         }
 
@@ -27,7 +33,7 @@ namespace KEngine.Core {
         }
 
         public override void Draw() {
-            CoreGame.spriteBatch.Draw(texture,
+            KGame.spriteBatch.Draw(texture,
                 rect,
                 color);
         }

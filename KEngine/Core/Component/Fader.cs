@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 
-namespace KEngine.Core {
-    class Fader: Component, IUpdatable {
+namespace KEngine.Core.Component {
+    class Fader: KComponent, IUpdatable {
         Renderer tr;
         public bool loop = false;
         public bool fadeIn = true;

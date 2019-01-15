@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using KEngine.Core.Component;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;

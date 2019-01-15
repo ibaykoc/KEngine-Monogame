@@ -4,12 +4,17 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace KEngine.Core {
+namespace KEngine.Core.Component {
     class TextRenderer : Renderer {
         public string text;
         public SpriteFont font;
         public BoundingBox2D bound;
         Vector2 fontSize;
+
+        public TextRenderer() {
+            this.text = "Text";
+            this.color = Color.White;
+        }
 
         public TextRenderer(string text = "Text", SpriteFont font = null, Color? color = null){
             this.text = text;
@@ -32,7 +37,7 @@ namespace KEngine.Core {
             Logger.LogLifecycle("RecalculateBound");
         }
         public override void Draw() {
-            CoreGame.spriteBatch.DrawString(font, text,
+            KGame.spriteBatch.DrawString(font, text,
                 bound.min,
                 color);
         }

@@ -17,7 +17,7 @@ namespace KEngineSandbox {
 
         public override void Initialize() {
             base.Initialize();
-            t = new Texture2D(CoreGame.graphicsDeviceManager.GraphicsDevice, 1, 1);
+            t = new Texture2D(KGame.graphicsDeviceManager.GraphicsDevice, 1, 1);
             t.SetData(new Color[] { Color.White });
             AddComponent(new TextureRenderer(t));
             AddComponent(new Collider2D());
